@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app/view/detail_screen.dart';
-import 'package:news_app/view/discover_screen.dart';
-import 'package:news_app/view/home_screen.dart';
+import 'package:news_app/view/screens/detail_screen.dart';
+import 'package:news_app/view/screens/discover_screen.dart';
+import 'package:news_app/view/screens/home_screen.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
