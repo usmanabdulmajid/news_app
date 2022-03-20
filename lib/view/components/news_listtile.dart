@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/utils/app_color.dart';
 import 'package:news_app/core/utils/extensions.dart';
 import 'package:news_app/core/utils/sizing.dart';
 
@@ -43,16 +44,20 @@ class NewsListTile extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          const Icon(Icons.access_time, size: 14),
+                          const Icon(Icons.access_time,
+                              size: 14, color: AppColor.grey),
                           const XGap(2),
-                          Text(timeAgo!)
+                          Text(timeAgo!,
+                              style: const TextStyle(color: AppColor.grey))
                         ],
                       ),
                       Row(
                         children: const [
-                          Icon(Icons.remove_red_eye, size: 14),
+                          Icon(Icons.remove_red_eye,
+                              size: 14, color: AppColor.grey),
                           XGap(2),
-                          Text('347 Views')
+                          Text('347 Views',
+                              style: TextStyle(color: AppColor.grey))
                         ],
                       ),
                     ],

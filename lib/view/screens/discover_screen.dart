@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/core/utils/app_color.dart';
 import 'package:news_app/core/utils/extensions.dart';
 import 'package:news_app/core/utils/sizing.dart';
 import 'package:news_app/view/components/news_listtile.dart';
@@ -42,38 +43,46 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                 const Icon(
                   Icons.menu,
                 ),
-                const YGap(70),
+                const YGap(60),
                 const Text(
                   'Discover',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 27),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
                 ),
                 const YGap(5),
                 const Text(
                   'News from all over the world',
                   style: TextStyle(color: Colors.grey, fontSize: 15),
                 ),
-                const YGap(20),
+                const YGap(30),
                 Container(
+                  height: 55,
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   decoration: BoxDecoration(
-                    color: Colors.black12,
+                    color: AppColor.lightGrey,
                     borderRadius: BorderRadius.circular(16),
                   ),
                   alignment: Alignment.center,
                   child: const TextField(
                     decoration: InputDecoration(
-                        icon: Icon(Icons.search),
+                        icon: Icon(
+                          Icons.search,
+                          color: AppColor.grey,
+                        ),
                         suffixIcon: RotatedBox(
                             quarterTurns: 3,
-                            child: Icon(CupertinoIcons.slider_horizontal_3)),
+                            child: Icon(
+                              CupertinoIcons.slider_horizontal_3,
+                              color: AppColor.grey,
+                            )),
                         hintText: 'search',
+                        hintStyle: TextStyle(color: AppColor.grey),
                         border: InputBorder.none),
                   ),
                 ),
               ],
             ),
           ),
-          const YGap(30),
+          const YGap(40),
           TabBar(
             controller: _tabController,
             isScrollable: true,
@@ -81,8 +90,8 @@ class _DiscoverScreenState extends State<DiscoverScreen>
             indicatorPadding: const EdgeInsets.only(left: 16, bottom: -10),
             indicatorSize: TabBarIndicatorSize.tab,
             indicatorColor: Colors.black,
-            labelColor: Colors.black,
-            unselectedLabelColor: Colors.grey,
+            labelColor: AppColor.black,
+            unselectedLabelColor: AppColor.grey,
             tabs: const [
               Text('Health',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),

@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:news_app/core/utils/app_color.dart';
 import 'package:news_app/core/utils/extensions.dart';
 import 'package:news_app/core/utils/sizing.dart';
 
@@ -43,7 +44,7 @@ class HomeScreen extends StatelessWidget {
                       child: const Text(
                         'News of the day',
                         style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
+                            color: AppColor.white, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
@@ -55,7 +56,7 @@ class HomeScreen extends StatelessWidget {
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
-                      color: Colors.white),
+                      color: AppColor.white),
                 ),
                 const YGap(15),
                 InkWell(
@@ -67,10 +68,10 @@ class HomeScreen extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white),
+                            color: AppColor.white),
                       ),
                       XGap(10),
-                      Icon(Icons.arrow_forward, color: Colors.white)
+                      Icon(Icons.arrow_forward, color: AppColor.white)
                     ],
                   ),
                 )
@@ -85,11 +86,17 @@ class HomeScreen extends StatelessWidget {
               children: const [
                 Text(
                   'Breaking News',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22,
+                      color: AppColor.black),
                 ),
                 Text(
                   'More',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: AppColor.black),
                 )
               ],
             ),
@@ -122,17 +129,19 @@ class HomeScreen extends StatelessWidget {
                         const Text(
                           'Immortal Hidan called Sasori a red puppet',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              color: AppColor.black),
                         ),
                         const YGap(10),
                         const Text(
                           '4 hours ag0',
-                          style: TextStyle(color: Colors.grey),
+                          style: TextStyle(color: AppColor.grey),
                         ),
                         const YGap(10),
                         const Text(
                           'By Uchiha R. Jaeger',
-                          style: TextStyle(color: Colors.grey),
+                          style: TextStyle(color: AppColor.grey),
                         ),
                         const YGap(50)
                       ],
