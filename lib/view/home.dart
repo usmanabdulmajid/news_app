@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/core/api/api_client.dart';
+import 'package:news_app/model/news.dart';
+import 'package:news_app/repository/news_repository.dart';
 import 'package:news_app/view/screens/detail_screen.dart';
 import 'package:news_app/view/screens/discover_screen.dart';
 import 'package:news_app/view/screens/home_screen.dart';
@@ -13,6 +16,16 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    NewsRepository newsRepository = NewsRepository(ApiClient());
+    newsRepository
+        .categoryNews(NewsCategory.business)
+        .then((value) => print(value[1].title));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
