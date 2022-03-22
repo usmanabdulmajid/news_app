@@ -5,3 +5,5 @@ class ResponseException extends ApiException {}
 class NetwrokException extends ApiException {}
 
 class InvalidFormatException extends ApiException {}
+
+class NoDataException implements Exception {}

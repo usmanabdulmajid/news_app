@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/core/api/api_client.dart';
 import 'package:news_app/model/news.dart';
 import 'package:news_app/repository/news_repository.dart';
+import 'package:news_app/service/local_db/sql_db.dart';
 import 'package:news_app/view/screens/detail_screen.dart';
 import 'package:news_app/view/screens/discover_screen.dart';
 import 'package:news_app/view/screens/home_screen.dart';
@@ -19,9 +20,9 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    NewsRepository newsRepository = NewsRepository(ApiClient());
+    NewsRepository newsRepository = NewsRepository(ApiClient(), SqlDb());
     newsRepository
-        .categoryNews(NewsCategory.business)
+        .categoryNews(NewsCategory.health)
         .then((value) => print(value[1].title));
     super.initState();
   }

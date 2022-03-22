@@ -10,12 +10,12 @@ enum NewsCategory {
 }
 
 extension ParseEnum on NewsCategory {
-  static NewsCategory enumParsing(String value) {
-    return NewsCategory.values.where((element) => element.name == value).first;
-  }
+  static NewsCategory enumParsing(String value) =>
+      NewsCategory.values.where((element) => element.name == value).first;
 }
 
 class News {
+  final int? id;
   final String? sourceName;
   final String? author;
   final String? title;
@@ -24,10 +24,12 @@ class News {
   final String? urlToImage;
   final String? publishedAt;
   final String? content;
-  final NewsCategory? category;
+  NewsCategory? category;
+  bool bookmark;
 
   News(
-      {this.sourceName,
+      {this.id,
+      this.sourceName,
       this.author,
       this.title,
       this.description,
@@ -35,7 +37,8 @@ class News {
       this.urlToImage,
       this.publishedAt,
       this.content,
-      this.category = NewsCategory.none});
+      this.category = NewsCategory.none,
+      this.bookmark = false});
   factory News.fromJson(Map<String, dynamic> json) {
     return News(
       sourceName: json['source']['name'],
@@ -51,6 +54,7 @@ class News {
 
   factory News.fromMap(Map<String, dynamic> map) {
     return News(
+        id: map['id'],
         sourceName: map['sourceName'],
         author: map['author'],
         title: map['title'],
@@ -59,7 +63,8 @@ class News {
         urlToImage: map['urlToImage'],
         publishedAt: map['publishedAt'],
         content: map['content'],
-        category: ParseEnum.enumParsing(map['content']));
+        category: ParseEnum.enumParsing(map['category']),
+        bookmark: map['bookmark'] == 1 ? true : false);
   }
 
   Map<String, dynamic> toMap() {
@@ -73,6 +78,7 @@ class News {
       'publishedAt': publishedAt,
       'content': content,
       'category': category?.name,
+      'bookmark': bookmark ? 1 : 0,
     };
   }
 }
