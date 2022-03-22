@@ -93,15 +93,15 @@ class _DiscoverScreenState extends State<DiscoverScreen>
             labelColor: AppColor.black,
             unselectedLabelColor: AppColor.grey,
             tabs: const [
+              Text('Business',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
               Text('Health',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-              Text('Politcis',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-              Text('Art',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-              Text('Food',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
               Text('Science',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+              Text('Sports',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+              Text('Technology',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
             ],
           ),
@@ -114,35 +114,35 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                 ListView.builder(itemBuilder: (context, index) {
                   return const NewsListTile(
                     imageUrl: 'images/zag.jpg',
+                    title: 'Hatake Kakashi called Sasori a red puppet',
+                    timeAgo: '4 hours ago',
+                  );
+                }),
+                ListView.builder(itemBuilder: (context, index) {
+                  return const NewsListTile(
+                    imageUrl: 'images/job.jpg',
+                    title: 'Hatake Kakashi called Sasori a red puppet',
+                    timeAgo: '4 hours ago',
+                  );
+                }),
+                ListView.builder(itemBuilder: (context, index) {
+                  return const NewsListTile(
+                    imageUrl: 'images/zag.jpg',
+                    title: 'Hatake Kakashi called Sasori a red puppet',
+                    timeAgo: '4 hours ago',
+                  );
+                }),
+                ListView.builder(itemBuilder: (context, index) {
+                  return const NewsListTile(
+                    imageUrl: 'images/zag.jpg',
                     title: 'Shunsui Kakashi called Sasori a red puppet',
                     timeAgo: '4 hours ago',
                   );
                 }),
                 ListView.builder(itemBuilder: (context, index) {
                   return const NewsListTile(
-                    imageUrl: 'images/job.jpg',
-                    title: 'Hatake Kakashi called Sasori a red puppet',
-                    timeAgo: '4 hours ago',
-                  );
-                }),
-                ListView.builder(itemBuilder: (context, index) {
-                  return const NewsListTile(
                     imageUrl: 'images/zag.jpg',
-                    title: 'Hatake Kakashi called Sasori a red puppet',
-                    timeAgo: '4 hours ago',
-                  );
-                }),
-                ListView.builder(itemBuilder: (context, index) {
-                  return const NewsListTile(
-                    imageUrl: 'images/job.jpg',
-                    title: 'Hatake Kakashi called Sasori a red puppet',
-                    timeAgo: '4 hours ago',
-                  );
-                }),
-                ListView.builder(itemBuilder: (context, index) {
-                  return const NewsListTile(
-                    imageUrl: 'images/zag.jpg',
-                    title: 'Hatake Kakashi called Sasori a red puppet',
+                    title: 'Shunsui Kakashi called Sasori a red puppet',
                     timeAgo: '4 hours ago',
                   );
                 }),

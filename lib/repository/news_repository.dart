@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:news_app/core/api/api_client.dart';
 import 'package:news_app/core/api/api_constants.dart';
@@ -14,8 +13,8 @@ class NewsRepository implements INewsRepository {
   NewsRepository(this.api, this.localDd);
 
   @override
-  Future<List<News>> topHeadlines() async {
-    List<News> news = await localDd.fetch(category: NewsCategory.none);
+  Future<List<News>> headlines() async {
+    List<News> news = await localDd.fetch(category: NewsCategory.headlines);
     if (news.isEmpty) {
       try {
         final apiResult = await api(uri: 'country=us${ApiConstants.apiKey}');
@@ -23,7 +22,7 @@ class NewsRepository implements INewsRepository {
         final articles = result['articles'] as List;
         news = articles.map((e) => News.fromJson(e)).toList();
         for (var each in news) {
-          each.category = NewsCategory.none;
+          each.category = NewsCategory.headlines;
           await localDd.save(each);
         }
       } on NetwrokException {

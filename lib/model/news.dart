@@ -6,7 +6,7 @@ enum NewsCategory {
   science,
   sport,
   technology,
-  none
+  headlines,
 }
 
 extension ParseEnum on NewsCategory {
@@ -37,7 +37,7 @@ class News {
       this.urlToImage,
       this.publishedAt,
       this.content,
-      this.category = NewsCategory.none,
+      this.category = NewsCategory.headlines,
       this.bookmark = false});
   factory News.fromJson(Map<String, dynamic> json) {
     return News(
