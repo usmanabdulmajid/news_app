@@ -45,7 +45,7 @@ class NewsRepository implements INewsRepository {
     if (news.isEmpty) {
       try {
         final apiResult =
-            await api(uri: 'country=ng&${category.name}${ApiConstants.apiKey}');
+            await api(uri: 'country=us&${category.name}${ApiConstants.apiKey}');
         final result = jsonDecode(apiResult);
         final articles = result['articles'] as List;
         news = articles.map((e) => News.fromJson(e)).toList();

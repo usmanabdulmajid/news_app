@@ -20,10 +20,6 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    NewsRepository newsRepository = NewsRepository(ApiClient(), SqlDb());
-    newsRepository
-        .categoryNews(NewsCategory.health)
-        .then((value) => print(value[1].title));
     super.initState();
   }
 
@@ -35,7 +31,6 @@ class _HomeState extends State<Home> {
         children: const [
           HomeScreen(),
           DiscoverScreen(),
-          DetailScreen(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

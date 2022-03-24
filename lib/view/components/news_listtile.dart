@@ -1,14 +1,28 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/core/utils/app_color.dart';
 import 'package:news_app/core/utils/extensions.dart';
 import 'package:news_app/core/utils/sizing.dart';
 
-class NewsListTile extends StatelessWidget {
+class NewsListTile extends StatefulWidget {
   final String? imageUrl;
   final String? title;
   final String? timeAgo;
-  const NewsListTile({this.imageUrl, this.title, this.timeAgo, Key? key})
+  final VoidCallback onBookark;
+  const NewsListTile(
+      {this.imageUrl,
+      this.title,
+      this.timeAgo,
+      required this.onBookark,
+      Key? key})
       : super(key: key);
+
+  @override
+  State<NewsListTile> createState() => _NewsListTileState();
+}
+
+class _NewsListTileState extends State<NewsListTile> {
+  bool isBookmark = false;
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +35,14 @@ class NewsListTile extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
-            child: Image.asset(imageUrl!,
-                width: 80, height: 80, fit: BoxFit.cover),
+            child: (widget.imageUrl == null)
+                ? Image.asset('images/job.jpg',
+                    width: 80, height: 80, fit: BoxFit.cover)
+                : CachedNetworkImage(
+                    imageUrl: widget.imageUrl!,
+                    width: 80,
+                    height: 80,
+                    fit: BoxFit.cover),
           ),
           const XGap(10),
           Flexible(
@@ -32,7 +52,7 @@ class NewsListTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title!,
+                    widget.title!,
                     style: const TextStyle(
                         fontSize: 18, fontWeight: FontWeight.bold),
                     maxLines: 2,
@@ -47,19 +67,21 @@ class NewsListTile extends StatelessWidget {
                           const Icon(Icons.access_time,
                               size: 14, color: AppColor.grey),
                           const XGap(2),
-                          Text(timeAgo!,
+                          Text(widget.timeAgo!,
                               style: const TextStyle(color: AppColor.grey))
                         ],
                       ),
-                      Row(
-                        children: const [
-                          Icon(Icons.remove_red_eye,
-                              size: 14, color: AppColor.grey),
-                          XGap(2),
-                          Text('347 Views',
-                              style: TextStyle(color: AppColor.grey))
-                        ],
-                      ),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            isBookmark = !isBookmark;
+                          });
+                          widget.onBookark;
+                        },
+                        child: isBookmark
+                            ? const Icon(Icons.bookmark)
+                            : const Icon(Icons.bookmark_outline_rounded),
+                      )
                     ],
                   ),
                 ],

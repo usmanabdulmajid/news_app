@@ -1,9 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:news_app/core/utils/app_color.dart';
 import 'package:news_app/core/utils/extensions.dart';
 import 'package:news_app/core/utils/sizing.dart';
+import 'package:news_app/model/news.dart';
 import 'package:news_app/view/components/news_listtile.dart';
+import 'package:news_app/view/screens/detail_screen.dart';
+import 'package:news_app/viewmodel/cubit/news_cubit.dart';
+import 'package:provider/src/provider.dart';
 
 class DiscoverScreen extends StatefulWidget {
   const DiscoverScreen({Key? key}) : super(key: key);
@@ -20,6 +26,7 @@ class _DiscoverScreenState extends State<DiscoverScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 5, vsync: this);
+    context.read<NewsCubit>().categoryNews(NewsCategory.business);
   }
 
   @override
@@ -92,6 +99,38 @@ class _DiscoverScreenState extends State<DiscoverScreen>
             indicatorColor: Colors.black,
             labelColor: AppColor.black,
             unselectedLabelColor: AppColor.grey,
+            onTap: (index) async {
+              print(index);
+              switch (index) {
+                case 0:
+                  await context
+                      .read<NewsCubit>()
+                      .categoryNews(NewsCategory.business);
+                  break;
+                case 1:
+                  await context
+                      .read<NewsCubit>()
+                      .categoryNews(NewsCategory.health);
+                  break;
+                case 2:
+                  await context
+                      .read<NewsCubit>()
+                      .categoryNews(NewsCategory.science);
+                  break;
+                case 3:
+                  await context
+                      .read<NewsCubit>()
+                      .categoryNews(NewsCategory.sport);
+                  break;
+                case 4:
+                  await context
+                      .read<NewsCubit>()
+                      .categoryNews(NewsCategory.technology);
+                  break;
+                default:
+                  context.read<NewsCubit>().categoryNews(NewsCategory.business);
+              }
+            },
             tabs: const [
               Text('Business',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
@@ -106,48 +145,89 @@ class _DiscoverScreenState extends State<DiscoverScreen>
             ],
           ),
           const YGap(10),
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              physics: const BouncingScrollPhysics(),
-              children: [
-                ListView.builder(itemBuilder: (context, index) {
-                  return const NewsListTile(
-                    imageUrl: 'images/zag.jpg',
-                    title: 'Hatake Kakashi called Sasori a red puppet',
-                    timeAgo: '4 hours ago',
-                  );
-                }),
-                ListView.builder(itemBuilder: (context, index) {
-                  return const NewsListTile(
-                    imageUrl: 'images/job.jpg',
-                    title: 'Hatake Kakashi called Sasori a red puppet',
-                    timeAgo: '4 hours ago',
-                  );
-                }),
-                ListView.builder(itemBuilder: (context, index) {
-                  return const NewsListTile(
-                    imageUrl: 'images/zag.jpg',
-                    title: 'Hatake Kakashi called Sasori a red puppet',
-                    timeAgo: '4 hours ago',
-                  );
-                }),
-                ListView.builder(itemBuilder: (context, index) {
-                  return const NewsListTile(
-                    imageUrl: 'images/zag.jpg',
-                    title: 'Shunsui Kakashi called Sasori a red puppet',
-                    timeAgo: '4 hours ago',
-                  );
-                }),
-                ListView.builder(itemBuilder: (context, index) {
-                  return const NewsListTile(
-                    imageUrl: 'images/zag.jpg',
-                    title: 'Shunsui Kakashi called Sasori a red puppet',
-                    timeAgo: '4 hours ago',
-                  );
-                }),
-              ],
-            ),
+          BlocConsumer<NewsCubit, NewsState>(
+            listener: (context, state) {},
+            builder: (context, state) {
+              if (state is NewsLoading) {
+                return const Expanded(
+                    child: Center(
+                        child: SpinKitDoubleBounce(color: AppColor.black)));
+              }
+              if (state is NewsLoaded) {
+                return Expanded(
+                  child: TabBarView(
+                    controller: _tabController,
+                    physics: const BouncingScrollPhysics(),
+                    children: [
+                      ListView.builder(
+                          itemCount: state.news.length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (_) =>
+                                      DetailScreen(news: state.news[index]),
+                                ));
+                              },
+                              child: NewsListTile(
+                                imageUrl: state.news[index].urlToImage,
+                                title: state.news[index].title!,
+                                timeAgo: state.news[index].publishedAt!
+                                    .fromTimestampToTimeAgo(),
+                                onBookark: () {},
+                              ),
+                            );
+                          }),
+                      ListView.builder(
+                          itemCount: state.news.length,
+                          itemBuilder: (context, index) {
+                            return NewsListTile(
+                              imageUrl: state.news[index].urlToImage,
+                              title: state.news[index].title!,
+                              timeAgo: state.news[index].publishedAt!
+                                  .fromTimestampToTimeAgo(),
+                              onBookark: () {},
+                            );
+                          }),
+                      ListView.builder(
+                          itemCount: state.news.length,
+                          itemBuilder: (context, index) {
+                            return NewsListTile(
+                              imageUrl: state.news[index].urlToImage,
+                              title: state.news[index].title!,
+                              timeAgo: state.news[index].publishedAt!
+                                  .fromTimestampToTimeAgo(),
+                              onBookark: () {},
+                            );
+                          }),
+                      ListView.builder(
+                          itemCount: state.news.length,
+                          itemBuilder: (context, index) {
+                            return NewsListTile(
+                              imageUrl: state.news[index].urlToImage,
+                              title: state.news[index].title!,
+                              timeAgo: state.news[index].publishedAt!
+                                  .fromTimestampToTimeAgo(),
+                              onBookark: () {},
+                            );
+                          }),
+                      ListView.builder(
+                          itemCount: state.news.length,
+                          itemBuilder: (context, index) {
+                            return NewsListTile(
+                              imageUrl: state.news[index].urlToImage,
+                              title: state.news[index].title!,
+                              timeAgo: state.news[index].publishedAt!
+                                  .fromTimestampToTimeAgo(),
+                              onBookark: () {},
+                            );
+                          }),
+                    ],
+                  ),
+                );
+              }
+              return Container();
+            },
           )
         ],
       ),

@@ -29,6 +29,7 @@ class NewsCubit extends Cubit<NewsState> {
   }
 
   Future<void> categoryNews(NewsCategory category) async {
+    emit(NewsLoading());
     try {
       final news = await newsRepository.categoryNews(category);
 

@@ -1,12 +1,15 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/core/utils/app_color.dart';
 import 'package:news_app/core/utils/extensions.dart';
 import 'package:news_app/core/utils/sizing.dart';
+import 'package:news_app/model/news.dart';
 
 class DetailScreen extends StatelessWidget {
-  const DetailScreen({Key? key}) : super(key: key);
+  final News news;
+  const DetailScreen({required this.news, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +20,16 @@ class DetailScreen extends StatelessWidget {
           Positioned(
             top: 0,
             child: Container(
-              height: context.screenHeight(0.55),
+              height: context.screenHeight(0.60),
               width: context.screenWidth(),
               padding: const EdgeInsets.only(left: 30, right: 40, bottom: 50),
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('images/job.jpg'), fit: BoxFit.cover),
+              decoration: BoxDecoration(
+                image: (news.urlToImage == null)
+                    ? const DecorationImage(
+                        image: AssetImage('images/job.jpg'), fit: BoxFit.cover)
+                    : DecorationImage(
+                        image: CachedNetworkImageProvider(news.urlToImage!),
+                        fit: BoxFit.cover),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,30 +50,30 @@ class DetailScreen extends StatelessWidget {
                     ),
                   ),
                   const YGap(20),
-                  const Text(
-                    'How useful is the sharingan to the uchihas in konohagakure',
+                  Text(
+                    news.title!,
                     maxLines: 3,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                         color: AppColor.white,
                         height: 1.5),
                   ),
                   const YGap(20),
-                  const Text(
-                      'A new study indicates that the condition of the activation of the sharingan requires the emition of certain hormones.',
-                      style: TextStyle(color: AppColor.white, height: 1.5))
+                  Text(news.description!,
+                      style:
+                          const TextStyle(color: AppColor.white, height: 1.5))
                 ],
               ),
             ),
           ),
           Positioned(
-            top: context.screenHeight(0.50),
+            top: context.screenHeight(0.55),
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Container(
                 width: context.screenWidth(),
-                height: context.screenHeight(45),
+                height: context.screenHeight(40),
                 padding: const EdgeInsets.only(top: 30, left: 16, right: 16),
                 decoration: const BoxDecoration(
                     color: AppColor.white,
@@ -87,13 +94,13 @@ class DetailScreen extends StatelessWidget {
                             color: AppColor.black,
                           ),
                           child: Row(
-                            children: const [
-                              CircleAvatar(
+                            children: [
+                              const CircleAvatar(
                                 radius: 15,
                               ),
-                              XGap(10),
-                              Text('Hatake S.',
-                                  style: TextStyle(
+                              const XGap(10),
+                              Text(news.sourceName!,
+                                  style: const TextStyle(
                                       color: AppColor.white, fontSize: 15))
                             ],
                           ),
@@ -114,28 +121,27 @@ class DetailScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: AppColor.lightGrey,
-                          ),
-                          child: Row(
-                            children: const [
-                              Icon(Icons.remove_red_eye,
-                                  size: 16, color: AppColor.grey),
-                              XGap(10),
-                              Text('376',
-                                  style: TextStyle(fontWeight: FontWeight.bold))
-                            ],
-                          ),
-                        ),
                       ],
                     ),
                     const YGap(25),
-                    const Text('Uchiha Sasuke called Orochimaru a snake',
-                        style: TextStyle(
-                            fontSize: 17, fontWeight: FontWeight.bold))
+                    Text(news.content!,
+                        maxLines: 4,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            wordSpacing: 2,
+                            height: 2,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold)),
+                    TextButton(
+                        onPressed: () {},
+                        style: TextButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                        ),
+                        child: const Text('conitue reading',
+                            style: TextStyle(
+                                wordSpacing: 2,
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold)))
                   ],
                 ),
               ),
