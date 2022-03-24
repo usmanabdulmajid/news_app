@@ -10,8 +10,8 @@ extension BuildContextExtensions on BuildContext {
 extension StringExtensions on String {
   String fromTimestampToTimeAgo([bool numericDates = true]) {
     final dataTime = DateTime.parse(this);
-    final nowDate = DateTime.now();
-    final difference = nowDate.difference(dataTime);
+    final now = DateTime.now();
+    final difference = now.difference(dataTime);
     if ((difference.inDays / 365).floor() >= 2) {
       return '${(difference.inDays / 365).floor()} years ago';
     } else if ((difference.inDays / 365).floor() >= 1) {
@@ -40,6 +40,25 @@ extension StringExtensions on String {
       return '${difference.inSeconds} seconds ago';
     } else {
       return 'Just now';
+    }
+  }
+
+  String fromTimestampToHour() {
+    final dataTime = DateTime.parse(this);
+    final now = DateTime.now();
+    final difference = now.difference(dataTime);
+    if (difference.inDays >= 2) {
+      return '${difference.inDays} days';
+    } else if (difference.inDays >= 1) {
+      return '${difference.inDays} d';
+    } else if (difference.inHours >= 1) {
+      return '${difference.inHours} h';
+    } else if (difference.inMinutes >= 1) {
+      return '${difference.inMinutes} m';
+    } else if (difference.inSeconds >= 3) {
+      return '${difference.inMinutes} sec';
+    } else {
+      return 'now';
     }
   }
 }

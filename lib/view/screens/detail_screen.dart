@@ -6,6 +6,7 @@ import 'package:news_app/core/utils/app_color.dart';
 import 'package:news_app/core/utils/extensions.dart';
 import 'package:news_app/core/utils/sizing.dart';
 import 'package:news_app/model/news.dart';
+import 'package:news_app/view/screens/news_webview_screen.dart';
 
 class DetailScreen extends StatelessWidget {
   final News news;
@@ -112,12 +113,13 @@ class DetailScreen extends StatelessWidget {
                             color: AppColor.lightGrey,
                           ),
                           child: Row(
-                            children: const [
-                              Icon(Icons.access_time,
+                            children: [
+                              const Icon(Icons.access_time,
                                   size: 16, color: AppColor.grey),
-                              XGap(10),
-                              Text('2 h',
-                                  style: TextStyle(fontWeight: FontWeight.bold))
+                              const XGap(10),
+                              Text(news.publishedAt!.fromTimestampToHour(),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold))
                             ],
                           ),
                         ),
@@ -133,7 +135,13 @@ class DetailScreen extends StatelessWidget {
                             fontSize: 17,
                             fontWeight: FontWeight.bold)),
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) =>
+                                      NewsWebviewScreen(news: news)));
+                        },
                         style: TextButton.styleFrom(
                           padding: EdgeInsets.zero,
                         ),

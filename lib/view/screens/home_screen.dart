@@ -7,6 +7,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:news_app/core/utils/app_color.dart';
 import 'package:news_app/core/utils/extensions.dart';
 import 'package:news_app/core/utils/sizing.dart';
+import 'package:news_app/view/screens/detail_screen.dart';
 import 'package:news_app/viewmodel/cubit/news_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -90,7 +91,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       const YGap(15),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) =>
+                                      DetailScreen(news: state.news[0])));
+                        },
                         child: Row(
                           children: const [
                             Text(
@@ -116,19 +123,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
                       Text(
-                        'Breaking News',
+                        'Top Headlines',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 22,
                             color: AppColor.black),
                       ),
-                      Text(
-                        'More',
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: AppColor.black),
-                      )
                     ],
                   ),
                 ),
@@ -142,51 +142,61 @@ class _HomeScreenState extends State<HomeScreen> {
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         if (index == 0) return const SizedBox();
-                        return Container(
-                          width: context.screenWidth(0.6),
-                          padding: const EdgeInsets.only(left: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(18),
-                                    child: (state.news[index].urlToImage ==
-                                            null)
-                                        ? Image.asset('images/job.jpg',
-                                            fit: BoxFit.cover)
-                                        : CachedNetworkImage(
-                                            imageUrl:
-                                                state.news[index].urlToImage!,
-                                            errorWidget: (context, url, err) =>
-                                                const Center(
-                                                    child: Icon(Icons.error)),
-                                            fit: BoxFit.cover,
-                                          )),
-                              ),
-                              const YGap(5),
-                              Text(
-                                state.news[index].title!,
-                                maxLines: 2,
-                                overflow: TextOverflow.fade,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                    color: AppColor.black),
-                              ),
-                              const YGap(10),
-                              Text(
-                                state.news[index].publishedAt!
-                                    .fromTimestampToTimeAgo(),
-                                style: const TextStyle(color: AppColor.grey),
-                              ),
-                              const YGap(10),
-                              Text(
-                                state.news[index].sourceName!,
-                                style: const TextStyle(color: AppColor.grey),
-                              ),
-                              const YGap(50)
-                            ],
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) =>
+                                        DetailScreen(news: state.news[index])));
+                          },
+                          child: Container(
+                            width: context.screenWidth(0.6),
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(18),
+                                      child: (state.news[index].urlToImage ==
+                                              null)
+                                          ? Image.asset('images/job.jpg',
+                                              fit: BoxFit.cover)
+                                          : CachedNetworkImage(
+                                              imageUrl:
+                                                  state.news[index].urlToImage!,
+                                              errorWidget: (context, url,
+                                                      err) =>
+                                                  const Center(
+                                                      child: Icon(Icons.error)),
+                                              fit: BoxFit.cover,
+                                            )),
+                                ),
+                                const YGap(5),
+                                Text(
+                                  state.news[index].title!,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.fade,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                      color: AppColor.black),
+                                ),
+                                const YGap(10),
+                                Text(
+                                  state.news[index].publishedAt!
+                                      .fromTimestampToTimeAgo(),
+                                  style: const TextStyle(color: AppColor.grey),
+                                ),
+                                const YGap(10),
+                                Text(
+                                  state.news[index].sourceName!,
+                                  style: const TextStyle(color: AppColor.grey),
+                                ),
+                                const YGap(50)
+                              ],
+                            ),
                           ),
                         );
                       },
