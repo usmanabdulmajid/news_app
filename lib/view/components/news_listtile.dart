@@ -8,12 +8,14 @@ class NewsListTile extends StatefulWidget {
   final String? imageUrl;
   final String? title;
   final String? timeAgo;
-  final VoidCallback onBookark;
-  const NewsListTile(
+  final VoidCallback? onBookark;
+  bool bookmark;
+  NewsListTile(
       {this.imageUrl,
       this.title,
       this.timeAgo,
-      required this.onBookark,
+      this.onBookark,
+      this.bookmark = false,
       Key? key})
       : super(key: key);
 
@@ -71,17 +73,10 @@ class _NewsListTileState extends State<NewsListTile> {
                               style: const TextStyle(color: AppColor.grey))
                         ],
                       ),
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            isBookmark = !isBookmark;
-                          });
-                          widget.onBookark;
-                        },
-                        child: isBookmark
-                            ? const Icon(Icons.bookmark)
-                            : const Icon(Icons.bookmark_outline_rounded),
-                      )
+                      if (widget.bookmark)
+                        InkWell(
+                            onTap: widget.onBookark,
+                            child: const Icon(Icons.bookmark_remove_rounded))
                     ],
                   ),
                 ],

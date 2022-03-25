@@ -4,6 +4,7 @@ import 'package:news_app/core/api/api_client.dart';
 import 'package:news_app/model/news.dart';
 import 'package:news_app/repository/news_repository.dart';
 import 'package:news_app/service/local_db/sql_db.dart';
+import 'package:news_app/view/screens/bookmark_screen.dart';
 import 'package:news_app/view/screens/detail_screen.dart';
 import 'package:news_app/view/screens/discover_screen.dart';
 import 'package:news_app/view/screens/home_screen.dart';
@@ -17,21 +18,20 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
+  late PageController controller;
 
   @override
   void initState() {
     super.initState();
+    controller = PageController();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: _selectedIndex,
-        children: const [
-          HomeScreen(),
-          DiscoverScreen(),
-        ],
+      body: PageView(
+        controller: controller,
+        children: const [HomeScreen(), DiscoverScreen(), BookmarkScreen()],
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
@@ -42,6 +42,8 @@ class _HomeState extends State<Home> {
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.black,
         onTap: (index) {
+          controller.jumpToPage(index);
+
           setState(() {
             _selectedIndex = index;
           });

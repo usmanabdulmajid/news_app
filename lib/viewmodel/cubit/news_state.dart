@@ -19,6 +19,11 @@ class NewsLoaded extends NewsState {
   List<Object> get props => [news];
 }
 
+class NoNewsData extends NewsState {
+  @override
+  List<Object> get props => [];
+}
+
 class SuccessfullyBookmark extends NewsState {
   @override
   List<Object> get props => [];

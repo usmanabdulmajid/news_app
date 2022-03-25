@@ -100,7 +100,6 @@ class _DiscoverScreenState extends State<DiscoverScreen>
             labelColor: AppColor.black,
             unselectedLabelColor: AppColor.grey,
             onTap: (index) async {
-              print(index);
               switch (index) {
                 case 0:
                   await context
@@ -174,7 +173,6 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                                 title: state.news[index].title!,
                                 timeAgo: state.news[index].publishedAt!
                                     .fromTimestampToTimeAgo(),
-                                onBookark: () {},
                               ),
                             );
                           }),
@@ -186,7 +184,6 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                               title: state.news[index].title!,
                               timeAgo: state.news[index].publishedAt!
                                   .fromTimestampToTimeAgo(),
-                              onBookark: () {},
                             );
                           }),
                       ListView.builder(
@@ -197,7 +194,6 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                               title: state.news[index].title!,
                               timeAgo: state.news[index].publishedAt!
                                   .fromTimestampToTimeAgo(),
-                              onBookark: () {},
                             );
                           }),
                       ListView.builder(
@@ -208,7 +204,6 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                               title: state.news[index].title!,
                               timeAgo: state.news[index].publishedAt!
                                   .fromTimestampToTimeAgo(),
-                              onBookark: () {},
                             );
                           }),
                       ListView.builder(
@@ -219,7 +214,6 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                               title: state.news[index].title!,
                               timeAgo: state.news[index].publishedAt!
                                   .fromTimestampToTimeAgo(),
-                              onBookark: () {},
                             );
                           }),
                     ],
