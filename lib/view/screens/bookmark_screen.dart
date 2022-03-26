@@ -18,7 +18,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<NewsCubit>().bookmarks();
+    //context.read<NewsCubit>().bookmarks();
   }
 
   @override

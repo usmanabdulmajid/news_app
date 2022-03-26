@@ -85,4 +85,16 @@ class NewsRepository implements INewsRepository {
     final result = await localDd.delete(id);
     return result;
   }
+
+  @override
+  Future<bool> refresh() async {
+    final news = await localDd.fetchAll();
+    for (var each in news) {
+      if (!each.bookmark) {
+        localDd.delete(each.id!);
+      }
+    }
+    await headlines();
+    return true;
+  }
 }

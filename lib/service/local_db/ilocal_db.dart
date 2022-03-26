@@ -5,4 +5,5 @@ abstract class ILocalDd {
   Future<bool> update(News news);
   Future<bool> delete(int id);
   Future<List<News>> fetch({NewsCategory? category});
+  Future<List<News>> fetchAll();
 }

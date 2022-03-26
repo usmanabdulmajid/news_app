@@ -61,4 +61,11 @@ class SqlDb implements ILocalDd {
         .update('News', news.toMap(), where: 'id = ?', whereArgs: [news.id]);
     return result != 0;
   }
+
+  @override
+  Future<List<News>> fetchAll() async {
+    final db = await database;
+    final result = await db.query('News');
+    return result.map((e) => News.fromMap(e)).toList();
+  }
 }

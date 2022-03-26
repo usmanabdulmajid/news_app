@@ -8,6 +8,8 @@ import 'package:news_app/view/screens/bookmark_screen.dart';
 import 'package:news_app/view/screens/detail_screen.dart';
 import 'package:news_app/view/screens/discover_screen.dart';
 import 'package:news_app/view/screens/home_screen.dart';
+import 'package:news_app/viewmodel/cubit/news_cubit.dart';
+import 'package:provider/src/provider.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -41,7 +43,10 @@ class _HomeState extends State<Home> {
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.black,
-        onTap: (index) {
+        onTap: (index) async {
+          if (index == 2) {
+            await context.read<NewsCubit>().bookmarks();
+          }
           controller.jumpToPage(index);
 
           setState(() {

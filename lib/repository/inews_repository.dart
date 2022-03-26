@@ -6,4 +6,5 @@ abstract class INewsRepository {
   Future<bool> bookmark(News news);
   Future<List<News>> bookmarks();
   Future<bool> removeBookmark(int id);
+  Future<bool> refresh();
 }
