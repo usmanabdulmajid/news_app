@@ -58,9 +58,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const YGap(60),
-                      const Icon(
-                        Icons.menu,
-                        color: Colors.white,
+                      InkWell(
+                        onTap: () async {
+                          await context.read<NewsCubit>().refresh();
+                        },
+                        child: const Icon(
+                          Icons.refresh,
+                          color: Colors.white,
+                        ),
                       ),
                       const YGap(10),
                       const Spacer(),

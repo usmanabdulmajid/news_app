@@ -45,6 +45,12 @@ class NewsCubit extends Cubit<NewsState> {
     }
   }
 
+  Future<void> refresh() async {
+    await newsRepository.refresh();
+    emit(NewsLoading());
+    await headLines();
+  }
+
   Future<void> bookmarks() async {
     final result = await newsRepository.bookmarks();
     if (result.isNotEmpty) {
@@ -58,6 +64,7 @@ class NewsCubit extends Cubit<NewsState> {
     final result = await newsRepository.bookmark(news);
     if (result) {
       emit(SuccessfullyBookmark());
+      headLines();
       return;
     }
     emit(FailedToBookmark());

@@ -90,11 +90,13 @@ class NewsRepository implements INewsRepository {
   Future<bool> refresh() async {
     final news = await localDd.fetchAll();
     for (var each in news) {
-      if (!each.bookmark) {
+      if (!each.bookmark ||
+          (!each.bookmark && each.category == NewsCategory.headlines)) {
+        print(each.category);
         localDd.delete(each.id!);
       }
     }
-    await headlines();
+    var xx = await headlines();
     return true;
   }
 }
